@@ -3,6 +3,7 @@ import { login } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
+import * as Yup from "yup";
 
 const Login = () => {
 
@@ -27,14 +28,20 @@ const Login = () => {
         }
     }
 
+    const validationSchema = Yup.object().shape({
+        email: Yup.string().email('Email no válido').required('Email requerido'),
+        password: Yup.string().trim().min(6, 'mínimo 6 caracteres').required('Contraseña requerida'),
+    });
+
     return (
         <>
             <h1>Login</h1>
             <Formik
                 initialValues={{ email: '', password: '' }}
                 onSubmit={onSubmit}
+                validationSchema={validationSchema}
             >
-                {({values, handleSubmit, handleChange}) => (
+                {({values, handleSubmit, handleChange, errors, touched, handleBlur}) => (
                         <form onSubmit={handleSubmit}>
                             <input 
                                 type="text" 
@@ -42,14 +49,18 @@ const Login = () => {
                                 value={values.email} 
                                 onChange={handleChange}
                                 name='email'
+                                onBlur={handleBlur}
                             />
+                            {errors.email && touched.email && errors.email}
                             <input 
                                 type="password" 
                                 placeholder="Ingrese contraseña" 
                                 value={values.password} 
                                 onChange={handleChange}
                                 name='password'
+                                onBlur={handleBlur}
                             />
+                            {errors.password && touched.password && errors.password}
                             <button type="submit">Login</button>
                         </form>
                     )}
