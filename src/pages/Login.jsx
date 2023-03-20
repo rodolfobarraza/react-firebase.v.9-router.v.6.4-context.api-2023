@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { login } from "../config/firebase";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Avatar, Box, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Button, TextField, Typography } from "@mui/material";
 import { AddAPhoto } from "@mui/icons-material";
+import { LoadingButton } from "@mui/lab";
 
 const Login = () => {
 
@@ -94,16 +95,21 @@ const Login = () => {
                                 error={ errors.password && touched.password }
                                 helperText={errors.password && touched.password && errors.password}
                             />
-                            <input 
-                                type="password" 
-                                placeholder="Ingrese contraseña" 
-                                value={values.password} 
-                                onChange={handleChange}
-                                name='password'
-                                onBlur={handleBlur}
-                            />
-                            {errors.password && touched.password && errors.password}
-                            <button type="submit" disabled={isSubmitting}>Login</button>
+                            <LoadingButton
+                                type="submit"
+                                disabled={isSubmitting}
+                                loading={isSubmitting}
+                                variant="contained"
+                                fullWidth
+                                sx={{ mb: 3 }}
+                            >Login</LoadingButton>
+                            <Button
+                                fullWidth
+                                component={Link}
+                                to="/register"
+                            >
+                                ¿No tienes cuenta?, Regístrate
+                            </Button>
                         </Box>
                     )}
             </Formik>
