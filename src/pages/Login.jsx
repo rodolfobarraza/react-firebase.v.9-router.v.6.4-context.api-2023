@@ -1,13 +1,21 @@
 import { useState } from "react";
+import { login } from "../config/firebase";
 
 const Login = () => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
-    const handleSubmit = e => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
         console.log('submit');
+
+        try {
+            const credentialUser = await login({email, password}) // completamente válido > await login(email: email, password: password)
+            console.log(credentialUser)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
