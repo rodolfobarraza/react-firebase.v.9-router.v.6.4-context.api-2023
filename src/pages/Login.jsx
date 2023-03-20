@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Box } from "@mui/material";
+import { Avatar, Box } from "@mui/material";
+import { AddAPhoto } from "@mui/icons-material";
 
 const Login = () => {
 
@@ -45,6 +46,9 @@ const Login = () => {
 
     return (
         <Box sx={{ mt: 8, maxWidth: "400px", mx: "auto", textAlign: "center" }}>
+            <Avatar sx={{ mx: "auto", bgcolor: "#111" }}>
+                <AddAPhoto></AddAPhoto>
+            </Avatar>
             <h1>Login</h1>
             <Formik
                 initialValues={{ email: '', password: '' }}
