@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Avatar, Box, Typography } from "@mui/material";
+import { Avatar, Box, TextField, Typography } from "@mui/material";
 import { AddAPhoto } from "@mui/icons-material";
 
 const Login = () => {
@@ -64,16 +64,36 @@ const Login = () => {
                     handleBlur, 
                     isSubmitting
                 }) => (
-                        <form onSubmit={handleSubmit}>
-                            <input 
+                        <Box onSubmit={handleSubmit} sx={{ mt: 1 }} component="form">
+
+                            <TextField
                                 type="text" 
-                                placeholder="Ingrese email" 
+                                placeholder="usuario@servidor.com" 
                                 value={values.email} 
                                 onChange={handleChange}
                                 name='email'
                                 onBlur={handleBlur}
+                                id="email"
+                                label="Ingrese Email"
+                                fullWidth
+                                sx={{ mb: 3 }}
+                                error={ errors.email && touched.email }
+                                helperText={errors.email && touched.email && errors.email}
                             />
-                            {errors.email && touched.email && errors.email}
+                            <TextField
+                                type="password" 
+                                placeholder="Ingrese contraseña" 
+                                value={values.password} 
+                                onChange={handleChange}
+                                name='password'
+                                onBlur={handleBlur}
+                                id='password'
+                                label="Ingrese contraseña"
+                                fullWidth
+                                sx={{ mb: 3 }}
+                                error={ errors.password && touched.password }
+                                helperText={errors.password && touched.password && errors.password}
+                            />
                             <input 
                                 type="password" 
                                 placeholder="Ingrese contraseña" 
@@ -84,7 +104,7 @@ const Login = () => {
                             />
                             {errors.password && touched.password && errors.password}
                             <button type="submit" disabled={isSubmitting}>Login</button>
-                        </form>
+                        </Box>
                     )}
             </Formik>
         </Box>
