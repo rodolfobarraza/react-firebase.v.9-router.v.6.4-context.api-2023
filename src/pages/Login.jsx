@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { Avatar, Box } from "@mui/material";
+import { Avatar, Box, Typography } from "@mui/material";
 import { AddAPhoto } from "@mui/icons-material";
 
 const Login = () => {
@@ -49,7 +49,7 @@ const Login = () => {
             <Avatar sx={{ mx: "auto", bgcolor: "#111" }}>
                 <AddAPhoto></AddAPhoto>
             </Avatar>
-            <h1>Login</h1>
+            <Typography variant="h5" component="h1">Login</Typography>
             <Formik
                 initialValues={{ email: '', password: '' }}
                 onSubmit={onSubmit}
