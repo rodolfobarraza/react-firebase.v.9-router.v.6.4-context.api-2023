@@ -22,7 +22,6 @@ const Login = () => {
     const onSubmit = async ({email, password}, {setSubmitting, setErrors, resetForm}) => {
         try {
             const credentialUser = await login({email, password}) // completamente válido > await login(email: email, password: password)
-            console.log(credentialUser);
             resetForm();
         } catch (error) {
             console.log(error)
