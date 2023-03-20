@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useUserContext } from "../context/UserContext";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { Box } from "@mui/material";
 
 const Login = () => {
 
@@ -43,7 +44,7 @@ const Login = () => {
     });
 
     return (
-        <>
+        <Box sx={{ mt: 8, maxWidth: "400px", mx: "auto", textAlign: "center" }}>
             <h1>Login</h1>
             <Formik
                 initialValues={{ email: '', password: '' }}
@@ -82,7 +83,7 @@ const Login = () => {
                         </form>
                     )}
             </Formik>
-        </>
+        </Box>
     )
 };
 
