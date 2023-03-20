@@ -19,12 +19,22 @@ const Login = () => {
         }
     }, [user])
 
-    const onSubmit = async ({email, password}) => {
+    const onSubmit = async ({email, password}, {setSubmitting, setErrors, resetForm}) => {
         try {
             const credentialUser = await login({email, password}) // completamente válido > await login(email: email, password: password)
-            console.log(credentialUser)
+            console.log(credentialUser);
+            resetForm();
         } catch (error) {
             console.log(error)
+            if (error.code === 'auth/user-not-found') {
+                return setErrors({email: 'Usuario no registrado'});
+            }
+            if (error.code === 'auth/wrong-password') {
+                return setErrors({password: 'Contraseña inválida'});
+            }
+        } finally {
+            setSubmitting(false)
+
         }
     }
 
@@ -41,7 +51,15 @@ const Login = () => {
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
             >
-                {({values, handleSubmit, handleChange, errors, touched, handleBlur}) => (
+                {({
+                    values, 
+                    handleSubmit, 
+                    handleChange, 
+                    errors, 
+                    touched, 
+                    handleBlur, 
+                    isSubmitting
+                }) => (
                         <form onSubmit={handleSubmit}>
                             <input 
                                 type="text" 
@@ -61,7 +79,7 @@ const Login = () => {
                                 onBlur={handleBlur}
                             />
                             {errors.password && touched.password && errors.password}
-                            <button type="submit">Login</button>
+                            <button type="submit" disabled={isSubmitting}>Login</button>
                         </form>
                     )}
             </Formik>
